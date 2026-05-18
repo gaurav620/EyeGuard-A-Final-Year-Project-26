@@ -1,0 +1,14 @@
+{
+  "name": "EyeGuard – AI Eye Health Monitor",
+  "short_name": "EyeGuard",
+  "description": "AI-powered eye strain detection with real-time blink tracking and fatigue analysis",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#F7F8FC",
+  "theme_color": "#5B6CFF",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

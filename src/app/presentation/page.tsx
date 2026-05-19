@@ -66,78 +66,85 @@ export default function PresentationPage() {
     return () => document.removeEventListener("fullscreenchange", handler);
   }, []);
 
+  const [isDownloading, setIsDownloading] = useState(false);
+
   const prev = () => current > 0 && goTo(current - 1, "left");
   const next = () => current < slides.length - 1 && goTo(current + 1, "right");
 
   const downloadPPTX = async () => {
-    const PptxGenJS = (await import("pptxgenjs")).default;
-    const pptx = new PptxGenJS();
-    pptx.author = "EyeGuard AI Team";
-    pptx.title = "EyeGuard AI — Final Year Project Presentation";
+    setIsDownloading(true);
+    try {
+      const PptxGenJS = (await import("pptxgenjs")).default;
+      const pptx = new PptxGenJS();
+      pptx.author = "EyeGuard AI Team";
+      pptx.title = "EyeGuard AI — Final Year Project Presentation";
 
-    for (const s of slides) {
-      const sl = pptx.addSlide();
-      sl.background = { fill: "0F0C29" };
+      for (const s of slides) {
+        const sl = pptx.addSlide();
+        sl.background = { fill: "0F0C29" };
 
-      /* Title */
-      sl.addText(s.title, {
-        x: 0.6, y: 0.4, w: 8.8, h: 0.8,
-        fontSize: 32, bold: true, color: "FFFFFF",
-        fontFace: "Arial",
-      });
-
-      /* Subtitle */
-      if (s.subtitle) {
-        sl.addText(s.subtitle, {
-          x: 0.6, y: 1.15, w: 8.8, h: 0.5,
-          fontSize: 16, color: "A78BFA", fontFace: "Arial",
+        /* Title */
+        sl.addText(s.title, {
+          x: 0.6, y: 0.4, w: 8.8, h: 0.8,
+          fontSize: 32, bold: true, color: "FFFFFF",
+          fontFace: "Arial",
         });
-      }
 
-      /* Content */
-      sl.addText(s.content, {
-        x: 0.6, y: 1.8, w: 8.8, h: 0.7,
-        fontSize: 13, color: "D1D5DB", fontFace: "Arial",
-        lineSpacingMultiple: 1.3,
-      });
-
-      /* Stats */
-      if (s.stats) {
-        s.stats.forEach((st, i) => {
-          const xPos = 0.6 + i * 2.2;
-          sl.addText(st.value, {
-            x: xPos, y: 2.6, w: 2, h: 0.5,
-            fontSize: 24, bold: true, color: st.color.replace("#", ""),
-            fontFace: "Arial", align: "center",
+        /* Subtitle */
+        if (s.subtitle) {
+          sl.addText(s.subtitle, {
+            x: 0.6, y: 1.15, w: 8.8, h: 0.5,
+            fontSize: 16, color: "A78BFA", fontFace: "Arial",
           });
-          sl.addText(st.label, {
-            x: xPos, y: 3.05, w: 2, h: 0.3,
-            fontSize: 10, color: "9CA3AF",
-            fontFace: "Arial", align: "center",
+        }
+
+        /* Content */
+        sl.addText(s.content, {
+          x: 0.6, y: 1.8, w: 8.8, h: 0.7,
+          fontSize: 13, color: "D1D5DB", fontFace: "Arial",
+          lineSpacingMultiple: 1.3,
+        });
+
+        /* Stats */
+        if (s.stats) {
+          s.stats.forEach((st, i) => {
+            const xPos = 0.6 + i * 2.2;
+            sl.addText(st.value, {
+              x: xPos, y: 2.6, w: 2, h: 0.5,
+              fontSize: 24, bold: true, color: st.color.replace("#", ""),
+              fontFace: "Arial", align: "center",
+            });
+            sl.addText(st.label, {
+              x: xPos, y: 3.05, w: 2, h: 0.3,
+              fontSize: 10, color: "9CA3AF",
+              fontFace: "Arial", align: "center",
+            });
           });
+        }
+
+        /* Bullets */
+        if (s.bullets) {
+          const startY = s.stats ? 3.5 : 2.6;
+          const bulletText = s.bullets.map(b => ({
+            text: b, options: { fontSize: 11, color: "E5E7EB", bullet: { code: "25CF" } as any, lineSpacingMultiple: 1.5 }
+          }));
+          sl.addText(bulletText as any, {
+            x: 0.6, y: startY, w: 8.8, h: 3.5,
+            fontFace: "Arial", valign: "top",
+          });
+        }
+
+        /* Footer */
+        sl.addText(`Slide ${s.id}/10 — EyeGuard AI | JISCE CSE`, {
+          x: 0.6, y: 6.8, w: 8.8, h: 0.3,
+          fontSize: 8, color: "6B7280", fontFace: "Arial",
         });
       }
 
-      /* Bullets */
-      if (s.bullets) {
-        const startY = s.stats ? 3.5 : 2.6;
-        const bulletText = s.bullets.map(b => ({
-          text: b, options: { fontSize: 11, color: "E5E7EB", bullet: { code: "25CF" } as any, lineSpacingMultiple: 1.5 }
-        }));
-        sl.addText(bulletText as any, {
-          x: 0.6, y: startY, w: 8.8, h: 3.5,
-          fontFace: "Arial", valign: "top",
-        });
-      }
-
-      /* Footer */
-      sl.addText(`Slide ${s.id}/10 — EyeGuard AI | JISCE CSE`, {
-        x: 0.6, y: 6.8, w: 8.8, h: 0.3,
-        fontSize: 8, color: "6B7280", fontFace: "Arial",
-      });
+      await pptx.writeFile({ fileName: "EyeGuard_AI_Presentation.pptx" });
+    } finally {
+      setIsDownloading(false);
     }
-
-    await pptx.writeFile({ fileName: "EyeGuard_AI_Presentation.pptx" });
   };
 
   return (
@@ -201,7 +208,10 @@ export default function PresentationPage() {
 
         /* ─ Slide ─ */
         .ppt-slide {
-          width: 100%; max-width: 960px;
+          width: 95vw;
+          max-height: 82vh;
+          max-width: calc(82vh * 16 / 9);
+          margin: 0 auto;
           aspect-ratio: 16/9;
           border-radius: 16px;
           position: relative; overflow: hidden;
@@ -221,16 +231,16 @@ export default function PresentationPage() {
         }
 
         .ppt-slide-title {
-          font-size: clamp(22px, 3.5vw, 38px); font-weight: 800;
+          font-size: clamp(22px, 4vw, 52px); font-weight: 800;
           color: #ffffff; margin: 0 0 4px; line-height: 1.15;
           letter-spacing: -0.02em;
         }
         .ppt-slide-subtitle {
-          font-size: clamp(12px, 1.6vw, 17px); font-weight: 500;
+          font-size: clamp(12px, 2vw, 24px); font-weight: 500;
           color: #A78BFA; margin: 0 0 16px; letter-spacing: -0.01em;
         }
         .ppt-slide-content {
-          font-size: clamp(11px, 1.3vw, 14px); color: #9CA3AF;
+          font-size: clamp(11px, 1.5vw, 18px); color: #9CA3AF;
           line-height: 1.6; margin: 0 0 18px; max-width: 90%;
         }
 
@@ -353,8 +363,12 @@ export default function PresentationPage() {
             {isFS ? <Minimize size={14} /> : <Maximize size={14} />}
             {isFS ? "Exit" : "Fullscreen"}
           </button>
-          <button className="ppt-btn ppt-btn-primary" onClick={downloadPPTX}>
-            <Download size={14} /> Download .pptx
+          <button className="ppt-btn ppt-btn-primary" onClick={downloadPPTX} disabled={isDownloading}>
+            {isDownloading ? (
+              <><span className="animate-spin text-lg leading-none">⟳</span> Downloading...</>
+            ) : (
+              <><Download size={14} /> Download .pptx</>
+            )}
           </button>
         </div>
       </div>

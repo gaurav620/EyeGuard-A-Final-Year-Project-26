@@ -114,7 +114,7 @@ export default function DocsPage() {
                     <p>Conv2d(64→128, 3×3) → BatchNorm → ReLU → AdaptiveAvgPool(1)</p>
                     <p>Flatten → FC(128→64) → ReLU → Dropout(0.3) → FC(64→2)</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 mt-4">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4">
                     <div className="text-center p-3 bg-white rounded-lg border">
                       <p className="text-2xl font-bold text-emerald-500">100%</p>
                       <p className="text-[10px] text-gray-400">Val Accuracy</p>
@@ -230,7 +230,7 @@ export default function DocsPage() {
             {/* 8. Results */}
             <section className="glass-card-static p-6 mb-6 section-fade">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2"><Target className="h-5 w-5 text-emerald-500" /> 8. Results &amp; Performance</h2>
-              <div className="mt-4 grid gap-4 sm:grid-cols-4">
+              <div className="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-4">
                 {[
                   {v:"100%",l:"Model Accuracy",c:"text-emerald-500"},{v:"30+",l:"FPS Detection",c:"text-[#5B6CFF]"},
                   {v:"<50ms",l:"Inference Latency",c:"text-purple-500"},{v:"99.9%",l:"LLM Uptime",c:"text-amber-500"},

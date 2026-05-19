@@ -112,7 +112,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Overview Cards — now 6 cards */}
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-6 section-fade">
+            <div className="mt-8 grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 section-fade">
               <div className="glass-card-static p-5">
                 <p className="text-xs text-gray-400 font-medium">Total Sessions</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{stats.total}</p>
@@ -141,8 +141,9 @@ export default function AnalyticsPage() {
 
             {/* Daily Activity (last 7 days) */}
             <div className="mt-6 glass-card-static p-6 section-fade">
-              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2"><CalendarDays className="h-5 w-5 text-[#5B6CFF]" /> Daily Activity — Last 7 Days</h2>
-              <div className="mt-4 grid grid-cols-7 gap-2">
+              <h2 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2"><CalendarDays className="h-5 w-5 text-[#5B6CFF]" /> Daily Activity — Last 7 Days</h2>
+              <div className="mt-4 overflow-x-auto -mx-2 px-2">
+                <div className="grid grid-cols-7 gap-2 min-w-[420px]">
                 {dailyBreakdown.map((day) => (
                   <div key={day.label} className="text-center">
                     <div className={`mx-auto w-full rounded-xl p-3 transition-all ${day.sessions > 0 ? "bg-gradient-to-b from-[#5B6CFF]/10 to-[#8B5CF6]/10 border border-[#5B6CFF]/20" : "bg-gray-50 border border-gray-100"}`}>
@@ -157,6 +158,7 @@ export default function AnalyticsPage() {
                     <p className="text-[10px] text-gray-400 mt-1.5 font-medium">{day.label}</p>
                   </div>
                 ))}
+                </div>
               </div>
             </div>
 

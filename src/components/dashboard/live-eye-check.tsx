@@ -321,24 +321,24 @@ export function LiveEyeCheck() {
   return (
     <div id="live-eye-check" className="space-y-6">
       {/* Main tracking card */}
-      <section className="glass-card-static p-5 sm:p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+      <section className="glass-card-static p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center gap-2">
             <Eye className="h-5 w-5 text-[#5B6CFF]" /> Live Eye Tracking
           </h2>
           {!running ? (
-            <button onClick={() => void startSession()} disabled={modelLoading} className="btn-primary inline-flex items-center gap-2 text-sm px-5 py-2.5">
+            <button onClick={() => void startSession()} disabled={modelLoading} className="btn-primary inline-flex items-center justify-center gap-2 text-sm px-5 py-2.5 w-full sm:w-auto">
               <Video className="h-4 w-4" />
               {modelLoading ? "Loading AI..." : modelReady ? "Start Session" : "Loading..."}
             </button>
           ) : (
-            <button onClick={stopSession} className="bg-red-500 hover:bg-red-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold inline-flex items-center gap-2 transition-colors shadow-lg shadow-red-500/20">
+            <button onClick={stopSession} className="bg-red-500 hover:bg-red-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors shadow-lg shadow-red-500/20 w-full sm:w-auto">
               <VideoOff className="h-4 w-4" /> Stop Session
             </button>
           )}
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-[1.4fr_1fr]">
           {/* Camera feed with landmark overlay */}
           <div className="relative overflow-hidden rounded-2xl bg-gray-900 aspect-[4/3]">
             <video ref={videoRef} autoPlay muted playsInline className="absolute inset-0 w-full h-full object-cover" style={{ transform: "scaleX(-1)" }} />
@@ -365,7 +365,7 @@ export function LiveEyeCheck() {
           </div>
 
           {/* Stats panel */}
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 sm:grid-cols-1 gap-3">
             {/* Session Duration */}
             <div className="rounded-xl border border-gray-200 bg-white p-4">
               <p className="text-xs text-gray-400 font-medium">Session Duration</p>

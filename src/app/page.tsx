@@ -88,7 +88,7 @@ export default function HomePage() {
         <Navbar />
 
         {/* Hero */}
-        <section className="pt-32 pb-20 px-4">
+        <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4">
           <div className="mx-auto max-w-4xl text-center section-fade">
             <div className="landing-icon mb-8">
               <Eye className="h-16 w-16 text-white" strokeWidth={1.5} />
@@ -97,10 +97,10 @@ export default function HomePage() {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-xs font-semibold text-[#5B6CFF]">Powered by MediaPipe & Deep Learning</span>
             </div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
               Protect Your<br /><span className="gradient-text">Eye Health</span>
             </h1>
-            <p className="mt-6 text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-base sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed px-2">
               Medical-grade AI eye strain detection with real-time blink tracking, fatigue analysis, and personalized care — all running locally in your browser.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -222,8 +222,8 @@ export default function HomePage() {
 
         {/* CTA */}
         <section className="pb-24 px-4">
-          <div className="mx-auto max-w-3xl glass-card p-10 sm:p-14 text-center section-fade">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <div className="mx-auto max-w-3xl glass-card p-6 sm:p-14 text-center section-fade">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">
               Ready to protect your <span className="gradient-text">vision</span>?
             </h2>
             <p className="text-gray-500 mb-8 max-w-lg mx-auto">

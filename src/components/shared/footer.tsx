@@ -94,10 +94,16 @@ export function Footer() {
             {/* PWA Install App Section */}
             <div className="mt-8">
               <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">Available On</h3>
-              <div className="flex items-center gap-3 text-gray-500 mb-4">
-                <div className="flex items-center gap-1.5" title="Desktop"><Monitor className="h-4 w-4" /><span className="text-[10px] font-medium">Desktop</span></div>
-                <div className="flex items-center gap-1.5" title="Android"><Smartphone className="h-4 w-4" /><span className="text-[10px] font-medium">Android</span></div>
-                <div className="flex items-center gap-1.5" title="iOS"><Smartphone className="h-4 w-4" /><span className="text-[10px] font-medium">iOS</span></div>
+              <div className="flex items-center gap-4 text-gray-500 mb-4">
+                <button onClick={handleInstall} className="flex items-center gap-1.5 hover:text-[#5B6CFF] transition-colors cursor-pointer" title="Install on Desktop">
+                  <Monitor className="h-4 w-4" /><span className="text-[10px] font-medium">Desktop</span>
+                </button>
+                <button onClick={handleInstall} className="flex items-center gap-1.5 hover:text-emerald-500 transition-colors cursor-pointer" title="Install on Android">
+                  <Smartphone className="h-4 w-4" /><span className="text-[10px] font-medium">Android</span>
+                </button>
+                <button onClick={() => alert("To install on iOS: Open this website in Safari, tap the 'Share' icon at the bottom, and select 'Add to Home Screen'.")} className="flex items-center gap-1.5 hover:text-gray-900 transition-colors cursor-pointer" title="Install on iOS">
+                  <Smartphone className="h-4 w-4" /><span className="text-[10px] font-medium">iOS</span>
+                </button>
               </div>
               
               {showInstall ? (

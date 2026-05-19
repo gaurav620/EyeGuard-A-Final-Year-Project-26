@@ -8,7 +8,7 @@ import { ParticleBackground } from "@/components/shared/particle-bg";
 import { LiveEyeCheck } from "@/components/dashboard/live-eye-check";
 import { SettingsPanel } from "@/components/dashboard/settings-panel";
 import { AIChatbot } from "@/components/dashboard/ai-chatbot";
-import { Zap, Settings, Clock, BarChart3 } from "lucide-react";
+import { Settings, Clock, BarChart3 } from "lucide-react";
 
 const EXERCISES = [
   { name: "20-20-20 Rule", desc: "Every 20 minutes, look at something 20 feet away for 20 seconds.", time: "20s" },
@@ -51,7 +51,6 @@ export default function DashboardPage() {
 
   const currentDate = useMemo(() => new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" }), []);
   const toggleSettings = useCallback(() => setSettingsOpen((p) => !p), []);
-  const scrollToEyeCheck = useCallback(() => document.getElementById("live-eye-check")?.scrollIntoView({ behavior: "smooth" }), []);
 
   return (
     <div className="noise-overlay relative min-h-screen overflow-x-hidden">
@@ -70,7 +69,6 @@ export default function DashboardPage() {
                 <p className="mt-2 text-gray-500">Real-time eye tracking, fatigue scoring, and personalized recommendations.</p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <button onClick={scrollToEyeCheck} className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-sm"><Zap className="h-4 w-4" /> Start Session</button>
                 <button onClick={toggleSettings} className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 text-sm"><Settings className="h-4 w-4" /> Settings</button>
               </div>
             </div>

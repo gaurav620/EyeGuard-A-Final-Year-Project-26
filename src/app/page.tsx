@@ -5,7 +5,7 @@ import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import { ParticleBackground } from "@/components/shared/particle-bg";
 import { AIChatbot } from "@/components/dashboard/ai-chatbot";
-import { Eye, Activity, BarChart3, Clock, Shield, Cpu, Bell, Smartphone, GraduationCap } from "lucide-react";
+import { Eye, Activity, BarChart3, Clock, Shield, Cpu, Bell, Smartphone, GraduationCap, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 
 /* Inline SVG icons for social (lucide doesn't ship brand icons) */
@@ -34,6 +34,7 @@ const teamMembers = [
     role: "ML Engineer & Backend",
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
+    email: "mailto:ayan@example.com",
     gradient: "from-blue-500 to-cyan-500",
     shadow: "shadow-blue-500/20",
     initials: "AB",
@@ -44,6 +45,7 @@ const teamMembers = [
     role: "Full Stack Lead & Architecture",
     linkedin: "https://www.linkedin.com/in/gaurav-kumar-mehta/",
     github: "https://github.com/gaurav620",
+    email: "mailto:gauravkumarmehta100@gmail.com",
     gradient: "from-[#5B6CFF] to-[#8B5CF6]",
     shadow: "shadow-[#5B6CFF]/20",
     initials: "GK",
@@ -54,6 +56,7 @@ const teamMembers = [
     role: "Frontend & UI/UX Design",
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
+    email: "mailto:arpan@example.com",
     gradient: "from-emerald-500 to-teal-500",
     shadow: "shadow-emerald-500/20",
     initials: "AM",
@@ -64,6 +67,7 @@ const teamMembers = [
     role: "Research & Testing",
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
+    email: "mailto:arka@example.com",
     gradient: "from-amber-500 to-orange-500",
     shadow: "shadow-amber-500/20",
     initials: "AB",
@@ -212,6 +216,9 @@ export default function HomePage() {
                     </a>
                     <a href={member.github} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-700" aria-label={`${member.name} GitHub`}>
                       <GithubIcon />
+                    </a>
+                    <a href={member.email} className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-600" aria-label={`${member.name} Email`}>
+                      <Mail className="w-4 h-4" />
                     </a>
                   </div>
                 </div>

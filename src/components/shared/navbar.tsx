@@ -90,6 +90,10 @@ export function Navbar() {
                   <Download className="h-3.5 w-3.5" /> Install App
                 </button>
               )}
+              
+              <Link href="/presentation" className="text-xs px-3 py-2 font-medium text-gray-600 hover:text-[#5B6CFF] transition-colors inline-flex items-center gap-1.5">
+                <BarChart3 className="h-3.5 w-3.5" /> Presentation
+              </Link>
 
               {isSignedIn && (
                 <>
@@ -159,6 +163,9 @@ export function Navbar() {
               </Link>
               <Link href="/docs" onClick={closeMobile} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[#5B6CFF]/10 transition-colors">
                 <Flame className="h-4 w-4 text-[#5B6CFF]" /> Documentation
+              </Link>
+              <Link href="/presentation" onClick={closeMobile} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[#5B6CFF]/10 transition-colors">
+                <BarChart3 className="h-4 w-4 text-[#5B6CFF]" /> Presentation
               </Link>
               {showInstall && (
                 <button onClick={() => { handleInstall(); closeMobile(); }} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[#5B6CFF] hover:bg-[#5B6CFF]/10 transition-colors w-full text-left">

@@ -17,6 +17,7 @@ const LINKS: Record<string, FooterLink[]> = {
     { label: "Dashboard", href: "/dashboard" },
     { label: "Analytics", href: "/analytics" },
     { label: "Documentation", href: "/docs" },
+    { label: "Presentation", href: "/presentation" },
     { label: "FAQs", href: "/faqs" },
   ],
   Resources: [

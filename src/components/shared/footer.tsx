@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { Eye, Mail, Heart } from "lucide-react";
+import { Eye, Mail, Heart, Monitor, Smartphone, Download } from "lucide-react";
+import { useEffect, useState } from "react";
 
 /* Inline SVG brand icons */
 const LinkedinIcon = () => (
@@ -35,6 +36,31 @@ const LINKS: Record<string, FooterLink[]> = {
 };
 
 export function Footer() {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstall, setShowInstall] = useState(false);
+
+  useEffect(() => {
+    const pwaHandler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstall(true);
+    };
+    window.addEventListener("beforeinstallprompt", pwaHandler);
+
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setShowInstall(false);
+    }
+    return () => window.removeEventListener("beforeinstallprompt", pwaHandler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === "accepted") setShowInstall(false);
+    setDeferredPrompt(null);
+  };
+
   return (
     <footer className="relative z-10 border-t border-gray-200/50 bg-white/60 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -63,6 +89,26 @@ export function Footer() {
               <a href="mailto:gauravkumarmehta100@gmail.com" className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors" aria-label="Email">
                 <Mail className="h-4 w-4 text-gray-600" />
               </a>
+            </div>
+
+            {/* PWA Install App Section */}
+            <div className="mt-8">
+              <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">Available On</h3>
+              <div className="flex items-center gap-3 text-gray-500 mb-4">
+                <div className="flex items-center gap-1.5" title="Desktop"><Monitor className="h-4 w-4" /><span className="text-[10px] font-medium">Desktop</span></div>
+                <div className="flex items-center gap-1.5" title="Android"><Smartphone className="h-4 w-4" /><span className="text-[10px] font-medium">Android</span></div>
+                <div className="flex items-center gap-1.5" title="iOS"><Smartphone className="h-4 w-4" /><span className="text-[10px] font-medium">iOS</span></div>
+              </div>
+              
+              {showInstall ? (
+                <button onClick={handleInstall} className="btn-primary w-full text-xs px-4 py-2.5 inline-flex items-center justify-center gap-2">
+                  <Download className="h-4 w-4" /> Install EyeGuard App
+                </button>
+              ) : (
+                <div className="text-[10px] text-gray-400 p-3 rounded-lg border border-gray-200/50 bg-gray-50/50">
+                  <p>App is either installed or not supported by your current browser.</p>
+                </div>
+              )}
             </div>
           </div>
 

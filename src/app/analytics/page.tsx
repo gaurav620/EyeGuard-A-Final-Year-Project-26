@@ -80,7 +80,7 @@ export default function AnalyticsPage() {
   const gradeColor = stats.grade === "A+" || stats.grade === "A" ? "text-emerald-500" : stats.grade === "B" ? "text-blue-500" : stats.grade === "C" ? "text-yellow-500" : "text-red-500";
 
   return (
-    <div className="noise-overlay relative min-h-screen">
+    <div className="noise-overlay relative min-h-screen overflow-x-hidden">
       <ParticleBackground />
       <div className="blob blob-1" /><div className="blob blob-2" />
       <div className="relative z-10">

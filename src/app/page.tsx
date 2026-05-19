@@ -81,7 +81,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="noise-overlay relative min-h-screen">
+    <div className="noise-overlay relative min-h-screen overflow-x-hidden">
       <ParticleBackground />
       <div className="blob blob-1" /><div className="blob blob-2" /><div className="blob blob-3" />
       <div className="relative z-10">
@@ -115,8 +115,8 @@ export default function HomePage() {
         </section>
 
         {/* Stats */}
-        <section className="pb-16 px-4">
-          <div className="mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-4 section-fade">
+        <section className="pb-16 px-4 sm:px-6">
+          <div className="mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 section-fade">
             {[
               { label: "Face Landmarks", value: "468" },
               { label: "Your Sessions", value: sessionCount.toString() },

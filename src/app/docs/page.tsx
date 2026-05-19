@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function DocsPage() {
   return (
-    <div className="noise-overlay relative min-h-screen">
+    <div className="noise-overlay relative min-h-screen overflow-x-hidden">
       <ParticleBackground />
       <div className="blob blob-1" /><div className="blob blob-2" />
       <div className="relative z-10">

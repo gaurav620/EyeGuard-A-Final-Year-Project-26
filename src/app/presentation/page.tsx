@@ -13,6 +13,8 @@ export default function PresentationPage() {
   const [isFS, setIsFS] = useState(false);
   const [anim, setAnim] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
+  const currentRef = useRef(current);
+  currentRef.current = current;
 
   const slide = slides[current];
 
@@ -26,35 +28,46 @@ export default function PresentationPage() {
     }, 250);
   }, []);
 
-  const prev = () => current > 0 && goTo(current - 1, "left");
-  const next = () => current < slides.length - 1 && goTo(current + 1, "right");
+  const toggleFS = useCallback(() => {
+    if (!document.fullscreenElement) {
+      containerRef.current?.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  }, []);
 
+  /* Keyboard navigation — uses refs to avoid stale closures */
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); next(); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
-      if (e.key === "Escape") setIsFS(false);
-      if (e.key === "f" || e.key === "F") toggleFS();
+      const c = currentRef.current;
+      if (e.key === "ArrowRight" || e.key === " ") {
+        e.preventDefault();
+        if (c < slides.length - 1) goTo(c + 1, "right");
+      }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        if (c > 0) goTo(c - 1, "left");
+      }
+      if (e.key === "Escape" && document.fullscreenElement) {
+        document.exitFullscreen?.().catch(() => {});
+      }
+      if ((e.key === "f" || e.key === "F") && !e.ctrlKey && !e.metaKey) {
+        toggleFS();
+      }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  });
+  }, [goTo, toggleFS]);
 
-  const toggleFS = () => {
-    if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen?.();
-      setIsFS(true);
-    } else {
-      document.exitFullscreen?.();
-      setIsFS(false);
-    }
-  };
-
+  /* Sync isFS state with actual fullscreen status */
   useEffect(() => {
     const handler = () => setIsFS(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", handler);
     return () => document.removeEventListener("fullscreenchange", handler);
   }, []);
+
+  const prev = () => current > 0 && goTo(current - 1, "left");
+  const next = () => current < slides.length - 1 && goTo(current + 1, "right");
 
   const downloadPPTX = async () => {
     const PptxGenJS = (await import("pptxgenjs")).default;
